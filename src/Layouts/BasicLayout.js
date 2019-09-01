@@ -20,7 +20,18 @@ export default class BasicLayout extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
+    const { history } = this.props;
+    this.setActiveMenu();
+    history.listen(() => {
+      console.log('listen');
+    });
+  }
+
+  componentWillUpdate() {
+    console.log('componentWillUpdate');
+  }
+
+  setActiveMenu = () => {
     const routerDataSE = [];
     routerData.forEach(n => {
       if (n.sub) {
@@ -42,10 +53,7 @@ export default class BasicLayout extends React.Component {
         });
       }
     });
-    this.props.history.listen(() => {
-      console.log('1');
-    });
-  }
+  };
 
   toggle = () => {
     this.setState({

@@ -1,8 +1,8 @@
-import { Test } from '../pages/Test';
-import { User } from '../pages/User/User';
-import { Private } from '../pages/Private';
-import { TestSub } from '../pages/TestSub';
-import { UserDetail } from '../pages/User/UserDetail';
+import Test from '../pages/Test';
+import User from '../pages/User/User';
+import Private from '../pages/Private';
+import TestSub from '../pages/TestSub';
+import UserDetail from '../pages/User/UserDetail';
 
 export const routerData = [
   {

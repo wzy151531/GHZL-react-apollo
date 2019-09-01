@@ -1,7 +1,9 @@
 import React from 'react';
 
-export const UserDetail = props => {
-  return (
-    <div>{`${props.match.params.id}'s detail`}</div>
-  );
+export default class UserDetail extends React.Component {
+  render() {
+    return (
+      <div>{`${this.props.match.params.id}'s detail`}</div>
+    );
+  }
 };

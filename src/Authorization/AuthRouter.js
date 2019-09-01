@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router';
 import { Route, Redirect } from 'react-router-dom';
 import { getAuthority } from '../utils/authority';
 import { Exception404 } from '../Exception/Exception404';
 
-class AuthRouter extends Component {
+class AuthRouter extends React.Component {
   render() {
     const { component: Component, ...rest } = this.props;
     const auth = getAuthority();
