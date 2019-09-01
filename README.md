@@ -23,7 +23,9 @@ Use ant-design as UI framework.<br/>
 ### `state`
 
 Cause the graphql doesn't need a lot of rendering data states to manage,
-it's not necessary to use redux to manage complicated states.<br/>
+it's not necessary to use umi-dva to manage complicated states.<br/>
+To fix the problem that active menu item can show correctly in basicLayout,this project use redux
+ to manage the global state: 'activeMenu'.
 
 ### `graphql/apollo`
 

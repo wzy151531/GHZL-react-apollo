@@ -15,20 +15,10 @@ const { SubMenu } = Menu;
 export default class BasicLayout extends React.Component {
   state = {
     collapsed: false,
-    selectedKeys: [''],
-    openKeys: [''],
   };
 
   componentDidMount() {
-    const { history } = this.props;
     this.setActiveMenu();
-    history.listen(() => {
-      console.log('listen');
-    });
-  }
-
-  componentWillUpdate() {
-    console.log('componentWillUpdate');
   }
 
   setActiveMenu = () => {
@@ -47,10 +37,7 @@ export default class BasicLayout extends React.Component {
     });
     routerDataSE.forEach(n => {
       if (this.props.location.pathname.indexOf(n.path) !== -1) {
-        this.setState({
-          selectedKeys: [n.selectedKey],
-          openKeys: [n.openKey],
-        });
+        this.props.setActiveMenu([n.selectedKey], [n.openKey]);
       }
     });
   };
@@ -66,13 +53,6 @@ export default class BasicLayout extends React.Component {
     localStorage.setItem('GHZL-authority', JSON.stringify(['guest']));
     this.props.history.push('/login');
     message.success('logout successfully!');
-  };
-
-  changeSelect = (selectedKey, openKey) => {
-    this.setState({
-      selectedKeys: selectedKey ? [selectedKey] : this.state.selectedKeys,
-      openKeys: openKey ? this.state.openKeys.toString() === [openKey].toString() && !selectedKey ? [''] : [openKey] : [''],
-    });
   };
 
   render() {
@@ -95,20 +75,20 @@ export default class BasicLayout extends React.Component {
             // 用户权限能否访问该菜单
             if (shouldSubRender) {
               subItems.push(
-                <Menu.Item key={k.key}><NavLink to={k.path} onClick={() => this.changeSelect(k.key, n.key)}><span>{n.text}</span></NavLink></Menu.Item>);
+                <Menu.Item key={k.key}><NavLink to={k.path} onClick={() => this.props.setActiveMenu([k.key], [n.key])}><span>{n.text}</span></NavLink></Menu.Item>);
             }
           });
           // 若子菜单用户均无法访问，则不显示父菜单，否则显示为下拉菜单
           if (subItems.length !== 0) {
             menuItem =
-              <SubMenu onTitleClick={() => this.changeSelect(false, n.key)} key={n.key} title={
+              <SubMenu onTitleClick={() => this.props.setActiveMenu(false, [n.key])} key={n.key} title={
                 <span><Icon type={n.icon}/><span>{n.text}</span></span>}>
                 {subItems}
               </SubMenu>;
           }
         } else {
           menuItem =
-            <Menu.Item key={n.key}><NavLink to={n.path} onClick={() => this.changeSelect(n.key, false)}><Icon type={n.icon}/><span>{n.text}</span></NavLink></Menu.Item>;
+            <Menu.Item key={n.key}><NavLink to={n.path} onClick={() => this.props.setActiveMenu([n.key], false)}><Icon type={n.icon}/><span>{n.text}</span></NavLink></Menu.Item>;
         }
         let shouldRender = false;
         auth.forEach(m => {
@@ -153,7 +133,7 @@ export default class BasicLayout extends React.Component {
         <Layout style={{ minHeight: '100vh' }}>
           <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
             <div className="logo"/>
-            <Menu theme="dark" mode="inline" selectedKeys={this.state.selectedKeys} openKeys={this.state.openKeys}>
+            <Menu theme="dark" mode="inline" selectedKeys={this.props.activeMenu.selectedKeys} openKeys={this.props.activeMenu.openKeys}>
               {menu}
             </Menu>
           </Sider>
@@ -180,7 +160,7 @@ export default class BasicLayout extends React.Component {
               </Row>
               <Divider style={{ margin: '0' }}/>
               <Row style={{ padding: '0 32px' }}>
-                <Breadcrumb/>
+                <Breadcrumb setActiveMenu={this.props.setActiveMenu}/>
               </Row>
             </Header>
             <Content

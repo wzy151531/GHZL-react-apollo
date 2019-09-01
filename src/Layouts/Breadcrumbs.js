@@ -1,7 +1,7 @@
 import React from 'react';
 import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
 import { Breadcrumb, Row, Col } from 'antd';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { routerData } from '../consts/routerData';
 
 const routerDataSE = [];
@@ -25,9 +25,9 @@ class Breadcrumbs extends React.Component {
           {breadcrumbs.map(({ breadcrumb, index, match }) => {
             return (
               <Breadcrumb.Item key={breadcrumb.key}>
-                <Link to={match.url}>
+                <NavLink to={match.url} onClick={() => this.props.setActiveMenu(breadcrumb.sub ? false : [breadcrumb.key], breadcrumb.sub ? [breadcrumb.key] : false)}>
                   {breadcrumb}
-                </Link>
+                </NavLink>
                 {(index < breadcrumbs.length - 1) && <i> / </i>}
               </Breadcrumb.Item>
             );
