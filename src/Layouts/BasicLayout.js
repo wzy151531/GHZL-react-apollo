@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect, NavLink } from 'react-router-dom';
 import { Exception404 } from '../Exception/Exception404';
 import { message, Row, Col, Layout, Menu, Icon, Divider, Avatar, Dropdown } from 'antd';
 import AuthRouter from '../Authorization/AuthRouter';
@@ -17,11 +17,10 @@ export default class BasicLayout extends React.Component {
     collapsed: false,
     selectedKeys: [''],
     openKeys: [''],
-    alias: '',
-    intro: '',
   };
 
   componentDidMount() {
+    console.log(this.props);
     const routerDataSE = [];
     routerData.forEach(n => {
       if (n.sub) {
@@ -36,14 +35,15 @@ export default class BasicLayout extends React.Component {
       }
     });
     routerDataSE.forEach(n => {
-      if (n.path === this.props.location.pathname) {
+      if (this.props.location.pathname.indexOf(n.path) !== -1) {
         this.setState({
           selectedKeys: [n.selectedKey],
           openKeys: [n.openKey],
-          alias: n.alias,
-          intro: n.intro,
         });
       }
+    });
+    this.props.history.listen(() => {
+      console.log('1');
     });
   }
 
@@ -60,12 +60,10 @@ export default class BasicLayout extends React.Component {
     message.success('logout successfully!');
   };
 
-  changeSelect = (selectedKey, openKey, alias, intro) => {
+  changeSelect = (selectedKey, openKey) => {
     this.setState({
       selectedKeys: selectedKey ? [selectedKey] : this.state.selectedKeys,
       openKeys: openKey ? this.state.openKeys.toString() === [openKey].toString() && !selectedKey ? [''] : [openKey] : [''],
-      alias: alias ? alias : this.state.alias,
-      intro: intro ? intro : this.state.intro,
     });
   };
 
@@ -89,20 +87,20 @@ export default class BasicLayout extends React.Component {
             // 用户权限能否访问该菜单
             if (shouldSubRender) {
               subItems.push(
-                <Menu.Item key={k.key}><Link to={k.path} onClick={() => this.changeSelect(k.key, n.key, k.alias, k.intro)}><span>{n.text}</span></Link></Menu.Item>);
+                <Menu.Item key={k.key}><NavLink to={k.path} onClick={() => this.changeSelect(k.key, n.key)}><span>{n.text}</span></NavLink></Menu.Item>);
             }
           });
           // 若子菜单用户均无法访问，则不显示父菜单，否则显示为下拉菜单
           if (subItems.length !== 0) {
             menuItem =
-              <SubMenu onTitleClick={() => this.changeSelect(false, n.key, false, false)} key={n.key} title={
+              <SubMenu onTitleClick={() => this.changeSelect(false, n.key)} key={n.key} title={
                 <span><Icon type={n.icon}/><span>{n.text}</span></span>}>
                 {subItems}
               </SubMenu>;
           }
         } else {
           menuItem =
-            <Menu.Item key={n.key}><Link to={n.path} onClick={() => this.changeSelect(n.key, false, n.alias, n.intro)}><Icon type={n.icon}/><span>{n.text}</span></Link></Menu.Item>;
+            <Menu.Item key={n.key}><NavLink to={n.path} onClick={() => this.changeSelect(n.key, false)}><Icon type={n.icon}/><span>{n.text}</span></NavLink></Menu.Item>;
         }
         let shouldRender = false;
         auth.forEach(m => {
@@ -147,8 +145,7 @@ export default class BasicLayout extends React.Component {
         <Layout style={{ minHeight: '100vh' }}>
           <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
             <div className="logo"/>
-            <Menu theme="dark" mode="inline"
-                  selectedKeys={this.state.selectedKeys} openKeys={this.state.openKeys}>
+            <Menu theme="dark" mode="inline" selectedKeys={this.state.selectedKeys} openKeys={this.state.openKeys}>
               {menu}
             </Menu>
           </Sider>
@@ -176,25 +173,12 @@ export default class BasicLayout extends React.Component {
               <Divider style={{ margin: '0' }}/>
               <Row style={{ padding: '0 32px' }}>
                 <Breadcrumb/>
-                <Row type="flex" justify="space-between" style={{
-                  fontSize: '20px',
-                  fontWeight: '700',
-                  color: 'black',
-                }}>
-                  <Col>{this.state.alias}</Col>
-                </Row>
-                <Row
-                  style={{ lineHeight: '28px', marginBottom: '15px' }}>
-                  <Col>
-                    {this.state.intro}
-                  </Col>
-                </Row>
               </Row>
             </Header>
             <Content
               style={{
                 margin: '24px 16px',
-                padding: 24,
+                padding: '24px',
                 background: '#fff',
                 minHeight: 280,
               }}

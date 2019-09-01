@@ -1,7 +1,8 @@
 import { Test } from '../pages/Test';
-import { User } from '../pages/User';
+import { User } from '../pages/User/User';
 import { Private } from '../pages/Private';
 import { TestSub } from '../pages/TestSub';
+import { UserDetail } from '../pages/User/UserDetail';
 
 export const routerData = [
   {
@@ -35,6 +36,16 @@ export const routerData = [
         intro: 'TEST-SUB-INTRO',
       },
     ],
+  },
+  {
+    path: '/user/:id',
+    component: UserDetail,
+    key: '2',
+    authority: ['admin', 'sub-admin'],
+    hideInMenu: true,
+    breadcrumb: 'USER-DETAIL',
+    alias: 'USER-DETAIL',
+    intro: 'USER-DETAIL-INTRO',
   },
   {
     path: '/user',

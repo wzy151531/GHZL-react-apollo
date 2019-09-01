@@ -1,6 +1,6 @@
 import React from 'react';
 import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 import { routerData } from '../consts/routerData';
 
@@ -16,15 +16,37 @@ routerData.forEach(n => {
   }
 });
 
-export default withBreadcrumbs(routerDataSE)(({ breadcrumbs }) => (
-  <Breadcrumb style={{ paddingTop: '20px' }}>
-    {breadcrumbs.map(({ breadcrumb, index, match }) => (
-      <Breadcrumb.Item key={breadcrumb.key}>
-        <Link to={match.url}>
-          {breadcrumb}
-        </Link>
-        {(index < breadcrumbs.length - 1) && <i> / </i>}
-      </Breadcrumb.Item>
-    ))}
-  </Breadcrumb>
-));
+class Breadcrumbs extends React.Component {
+  render() {
+    const { breadcrumbs } = this.props;
+    return (
+      <div>
+        <Breadcrumb style={{ paddingTop: '20px' }}>
+          {breadcrumbs.map(({ breadcrumb, index, match }) => {
+            return (
+              <Breadcrumb.Item key={breadcrumb.key}>
+                <Link to={match.url}>
+                  {breadcrumb}
+                </Link>
+                {(index < breadcrumbs.length - 1) && <i> / </i>}
+              </Breadcrumb.Item>
+            );
+          })}
+        </Breadcrumb>
+        <Row type="flex" justify="space-between" style={{
+          fontSize: '20px',
+          fontWeight: '700',
+          color: 'black',
+        }}>
+          <Col>{breadcrumbs[breadcrumbs.length - 1].alias}</Col>
+        </Row>
+        <Row
+          style={{ lineHeight: '28px', marginBottom: '15px' }}>
+          <Col>{breadcrumbs[breadcrumbs.length - 1].intro}</Col>
+        </Row>
+      </div>
+    );
+  }
+}
+
+export default withBreadcrumbs(routerDataSE)(Breadcrumbs);
