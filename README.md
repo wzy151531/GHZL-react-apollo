@@ -2,6 +2,13 @@ This project was bootstrapped with Create React App.
 
 ## GHZL-react-apollo-antd
 
+### `quick start`
+
+Use 'yarn' to install the dependencies,then use 'yarn start' to start the project.<br/>
+Use two accounts with different authority to login:<br/>
+1. username: GHZL, password: admin, authority: admin.
+2. username: GHZL, password: subadmin, authority: sub-admin.
+
 ### `features`
 
 This project is designed to be a management system,it has several features:
