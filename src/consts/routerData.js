@@ -11,6 +11,9 @@ export const routerData = [
     authority: ['admin', 'sub-admin'],
     text: '',
     hideInMenu: true,
+    breadcrumb: 'INDEX',
+    alias: 'USER',
+    intro: 'USER-INTRO',
   },
   {
     path: '/test',
@@ -19,6 +22,7 @@ export const routerData = [
     authority: ['admin', 'sub-admin'],
     text: 'TEST',
     icon: 'user',
+    breadcrumb: null,
     sub: [
       {
         path: '/test/sub',
@@ -26,6 +30,9 @@ export const routerData = [
         key: '1',
         authority: ['admin'],
         text: 'TEST-SUB',
+        breadcrumb: 'TEST-SUB',
+        alias: 'TEST-SUB',
+        intro: 'TEST-SUB-INTRO',
       },
     ],
   },
@@ -36,6 +43,9 @@ export const routerData = [
     authority: ['admin', 'sub-admin'],
     text: 'USER',
     icon: 'user',
+    breadcrumb: 'USER',
+    alias: 'USER',
+    intro: 'USER-INTRO',
   },
   {
     path: '/private',
@@ -44,5 +54,8 @@ export const routerData = [
     authority: ['admin'],
     text: 'PRIVATE',
     icon: 'user',
+    breadcrumb: 'PRIVATE',
+    alias: 'PRIVATE',
+    intro: 'PRIVATE-INTRO',
   },
 ];

@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
 import { Exception404 } from '../Exception/Exception404';
-import { Button, message, Row, Col, Layout, Menu, Icon } from 'antd';
+import { message, Row, Col, Layout, Menu, Icon, Divider, Avatar, Dropdown } from 'antd';
 import AuthRouter from '../Authorization/AuthRouter';
 import { routerData } from '../consts/routerData';
 import './BasicLayout.css';
 import { getAuthority } from '../utils/authority';
+import Breadcrumb from './Breadcrumbs';
+import GHZLAvatar from '../assets/GHZL.png';
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -15,6 +17,8 @@ export default class BasicLayout extends React.Component {
     collapsed: false,
     selectedKeys: [''],
     openKeys: [''],
+    alias: '',
+    intro: '',
   };
 
   componentDidMount() {
@@ -36,6 +40,8 @@ export default class BasicLayout extends React.Component {
         this.setState({
           selectedKeys: [n.selectedKey],
           openKeys: [n.openKey],
+          alias: n.alias,
+          intro: n.intro,
         });
       }
     });
@@ -54,10 +60,12 @@ export default class BasicLayout extends React.Component {
     message.success('logout successfully!');
   };
 
-  changeSelect = (selectedKey, openKey) => {
+  changeSelect = (selectedKey, openKey, alias, intro) => {
     this.setState({
       selectedKeys: selectedKey ? [selectedKey] : this.state.selectedKeys,
-      openKeys: openKey ? [openKey] : [''],
+      openKeys: openKey ? this.state.openKeys.toString() === [openKey].toString() && !selectedKey ? [''] : [openKey] : [''],
+      alias: alias ? alias : this.state.alias,
+      intro: intro ? intro : this.state.intro,
     });
   };
 
@@ -81,20 +89,20 @@ export default class BasicLayout extends React.Component {
             // 用户权限能否访问该菜单
             if (shouldSubRender) {
               subItems.push(
-                <Menu.Item key={k.key}><Link to={k.path} onClick={() => this.changeSelect(k.key, n.key)}><span>{n.text}</span></Link></Menu.Item>);
+                <Menu.Item key={k.key}><Link to={k.path} onClick={() => this.changeSelect(k.key, n.key, k.alias, k.intro)}><span>{n.text}</span></Link></Menu.Item>);
             }
           });
           // 若子菜单用户均无法访问，则不显示父菜单，否则显示为下拉菜单
           if (subItems.length !== 0) {
             menuItem =
-              <SubMenu onTitleClick={() => this.changeSelect(false, n.key)} key={n.key} title={
+              <SubMenu onTitleClick={() => this.changeSelect(false, n.key, false, false)} key={n.key} title={
                 <span><Icon type={n.icon}/><span>{n.text}</span></span>}>
                 {subItems}
               </SubMenu>;
           }
         } else {
           menuItem =
-            <Menu.Item key={n.key}><Link to={n.path} onClick={() => this.changeSelect(n.key)}><Icon type={n.icon}/><span>{n.text}</span></Link></Menu.Item>;
+            <Menu.Item key={n.key}><Link to={n.path} onClick={() => this.changeSelect(n.key, false, n.alias, n.intro)}><Icon type={n.icon}/><span>{n.text}</span></Link></Menu.Item>;
         }
         let shouldRender = false;
         auth.forEach(m => {
@@ -124,6 +132,16 @@ export default class BasicLayout extends React.Component {
       <AuthRouter key={i} path={n.path} authority={n.authority} component={n.component}/>
     ));
 
+    const dropdownMenu = (
+      <Menu>
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" onClick={this.logout}>
+            退出登录
+          </a>
+        </Menu.Item>
+      </Menu>
+    );
+
     return (
       <Router>
         <Layout style={{ minHeight: '100vh' }}>
@@ -135,7 +153,7 @@ export default class BasicLayout extends React.Component {
             </Menu>
           </Sider>
           <Layout>
-            <Header style={{ background: '#fff', padding: 0 }}>
+            <Header style={{ background: '#fff', padding: 0, height: 'auto' }}>
               <Row type="flex" justify="space-between">
                 <Col>
                   <Icon
@@ -145,8 +163,32 @@ export default class BasicLayout extends React.Component {
                   />
                 </Col>
                 <Col style={{ marginRight: '16px' }}>
-                  <Button type="danger" onClick={this.logout}>Logout</Button>
+                  <Avatar src={GHZLAvatar}/>
+                  <Dropdown overlay={dropdownMenu}>
+                    <a className="ant-dropdown-link" style={{ color: 'black' }} href="#">
+                      {localStorage.getItem('GHZL-username') ? localStorage.getItem('GHZL-username') : 'unknown'}
+                      <Icon
+                        type="down"/>
+                    </a>
+                  </Dropdown>
                 </Col>
+              </Row>
+              <Divider style={{ margin: '0' }}/>
+              <Row style={{ padding: '0 32px' }}>
+                <Breadcrumb/>
+                <Row type="flex" justify="space-between" style={{
+                  fontSize: '20px',
+                  fontWeight: '700',
+                  color: 'black',
+                }}>
+                  <Col>{this.state.alias}</Col>
+                </Row>
+                <Row
+                  style={{ lineHeight: '28px', marginBottom: '15px' }}>
+                  <Col>
+                    {this.state.intro}
+                  </Col>
+                </Row>
               </Row>
             </Header>
             <Content
