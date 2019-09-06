@@ -3,6 +3,7 @@ import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
 import { Breadcrumb, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 import { routerData } from '../consts/routerData';
+import { inject, observer } from 'mobx-react';
 
 const routerDataSE = [];
 routerData.forEach(n => {
@@ -16,6 +17,8 @@ routerData.forEach(n => {
   }
 });
 
+@inject('store')
+@observer
 class Breadcrumbs extends React.Component {
   render() {
     const { breadcrumbs } = this.props;
@@ -25,7 +28,7 @@ class Breadcrumbs extends React.Component {
           {breadcrumbs.map(({ breadcrumb, index, match }) => {
             return (
               <Breadcrumb.Item key={breadcrumb.key}>
-                <Link to={match.url}>
+                <Link to={match.url} onClick={()=>this.props.store.changeActiveMenu(breadcrumb.sub ? false : [breadcrumb.key], breadcrumb.sub ? [breadcrumb.key] : false)}>
                   {breadcrumb}
                 </Link>
                 {(index < breadcrumbs.length - 1) && <i> / </i>}

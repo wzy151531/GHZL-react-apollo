@@ -8,27 +8,24 @@ import './BasicLayout.css';
 import { getAuthority } from '../utils/authority';
 import Breadcrumb from './Breadcrumbs';
 import GHZLAvatar from '../assets/GHZL.png';
+import { inject, observer } from 'mobx-react';
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
-export default class BasicLayout extends React.Component {
+@inject('store')
+@observer
+class BasicLayout extends React.Component {
   state = {
     collapsed: false,
-    selectedKeys: [''],
-    openKeys: [''],
   };
 
   componentDidMount() {
     const { history } = this.props;
     this.setActiveMenu();
     history.listen(() => {
-      console.log('listen');
+      this.setActiveMenu();
     });
-  }
-
-  componentWillUpdate() {
-    console.log('componentWillUpdate');
   }
 
   setActiveMenu = () => {
@@ -47,10 +44,7 @@ export default class BasicLayout extends React.Component {
     });
     routerDataSE.forEach(n => {
       if (this.props.location.pathname.indexOf(n.path) !== -1) {
-        this.setState({
-          selectedKeys: [n.selectedKey],
-          openKeys: [n.openKey],
-        });
+        this.props.store.changeActiveMenu([n.selectedKey], [n.openKey]);
       }
     });
   };
@@ -69,10 +63,9 @@ export default class BasicLayout extends React.Component {
   };
 
   changeSelect = (selectedKey, openKey) => {
-    this.setState({
-      selectedKeys: selectedKey ? [selectedKey] : this.state.selectedKeys,
-      openKeys: openKey ? this.state.openKeys.toString() === [openKey].toString() && !selectedKey ? [''] : [openKey] : [''],
-    });
+    const newSelectedKeys = selectedKey ? [selectedKey] : this.props.store.selectedKeys;
+    const newOpenKeys = openKey ? this.props.store.openKeys.toString() === [openKey].toString() && !selectedKey ? [''] : [openKey] : [''];
+    this.props.store.changeActiveMenu(newSelectedKeys, newOpenKeys);
   };
 
   render() {
@@ -153,7 +146,7 @@ export default class BasicLayout extends React.Component {
         <Layout style={{ minHeight: '100vh' }}>
           <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
             <div className="logo"/>
-            <Menu theme="dark" mode="inline" selectedKeys={this.state.selectedKeys} openKeys={this.state.openKeys}>
+            <Menu theme="dark" mode="inline" selectedKeys={this.props.store.selectedKeys} openKeys={this.props.store.openKeys}>
               {menu}
             </Menu>
           </Sider>
@@ -204,4 +197,6 @@ export default class BasicLayout extends React.Component {
       </Router>
     );
   }
-};
+}
+
+export default BasicLayout;
