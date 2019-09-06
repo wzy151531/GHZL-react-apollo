@@ -24,6 +24,7 @@ Use ant-design as UI framework.<br/>
 
 Cause the graphql doesn't need a lot of rendering data states to manage,
 it's not necessary to use redux to manage complicated states.<br/>
+This branch use mobx to manage the states.
 
 ### `graphql/apollo`
 
