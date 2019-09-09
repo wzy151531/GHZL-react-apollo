@@ -1,4 +1,3 @@
-import Test from '../pages/Test';
 import User from '../pages/User/User';
 import Private from '../pages/Private';
 import TestSub from '../pages/TestSub';
@@ -18,7 +17,6 @@ export const routerData = [
   },
   {
     path: '/test',
-    component: Test,
     key: 'sub1',
     authority: ['admin', 'sub-admin'],
     text: 'TEST',
