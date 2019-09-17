@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Private should render correctly 1`] = `
+<div>
+  Private.
+  <p>
+    This page can only be accessed by admin.
+  </p>
+  <div
+    className="ant-row-flex ant-row-flex-middle"
+    style={
+      Object {
+        "marginLeft": -8,
+        "marginRight": -8,
+      }
+    }
+  >
+    <div
+      className="ant-col"
+      style={
+        Object {
+          "paddingLeft": 8,
+          "paddingRight": 8,
+        }
+      }
+    >
+      parentMsg
+    </div>
+    <div
+      className="ant-col"
+      style={
+        Object {
+          "paddingLeft": 8,
+          "paddingRight": 8,
+        }
+      }
+    >
+      <button
+        className="ant-btn ant-btn-primary"
+        id="changeParentMsg"
+        onClick={[Function]}
+        type="button"
+      >
+        <span>
+          changeParentMsg
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    className="ant-row"
+  >
+    <div>
+      sonMsg
+    </div>
+  </div>
+</div>
+`;

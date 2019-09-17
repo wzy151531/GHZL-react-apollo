@@ -14,13 +14,18 @@ export default class Private extends React.Component {
     });
   };
 
+  showSth = () => {
+    console.log('showSth');
+    return 1;
+  };
+
   render() {
     return (
       <div>Private.
         <p>This page can only be accessed by admin.</p>
         <Row type="flex" align="middle" gutter={16}>
           <Col>{this.state.parentMsg}</Col>
-          <Col><Button type="primary" onClick={() => this.changeParentMsg('fuck')}>changeParentMsg</Button></Col>
+          <Col><Button id="changeParentMsg" type="primary" onClick={() => this.changeParentMsg('fuck')}>changeParentMsg</Button></Col>
         </Row>
         <Row>
           <Son sonMsg={this.state.sonMsg}/>
