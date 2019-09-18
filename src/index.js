@@ -10,9 +10,10 @@ import Login from './Layouts/Login';
 import BasicLayout from './Layouts/BasicLayout';
 import { Provider } from 'mobx-react';
 import store from './store';
+import { uri } from './consts/apolloUri';
 
-export const client = new ApolloClient({
-  uri: 'http://localhost:4000',
+const client = new ApolloClient({
+  uri: uri,
 });
 
 class App extends React.Component {

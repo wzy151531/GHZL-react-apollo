@@ -2,19 +2,6 @@
   "name": "apollo_react",
   "version": "0.1.0",
   "private": true,
-  "babel": {
-    "plugins": [
-      [
-        "@babel/plugin-proposal-decorators",
-        {
-          "legacy": true
-        }
-      ]
-    ],
-    "presets": [
-      "react-app"
-    ]
-  },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",
     "@babel/plugin-proposal-decorators": "^7.4.4",
@@ -42,6 +29,19 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "babel": {
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ]
+    ],
+    "presets": [
+      "react-app"
+    ]
   },
   "browserslist": {
     "production": [

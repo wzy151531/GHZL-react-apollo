@@ -1,0 +1,211 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User should render correctly 1`] = `
+<div
+  style={
+    Object {
+      "padding": "32px",
+    }
+  }
+>
+  <div
+    className="ant-table-wrapper"
+  >
+    <div
+      className="ant-spin-nested-loading"
+    >
+      <div>
+        <div
+          className="ant-spin ant-spin-spinning ant-table-without-pagination ant-table-spin-holder"
+        >
+          <span
+            className="ant-spin-dot ant-spin-dot-spin"
+          >
+            <i
+              className="ant-spin-dot-item"
+            />
+            <i
+              className="ant-spin-dot-item"
+            />
+            <i
+              className="ant-spin-dot-item"
+            />
+            <i
+              className="ant-spin-dot-item"
+            />
+          </span>
+        </div>
+      </div>
+      <div
+        className="ant-spin-container ant-spin-blur"
+      >
+        <div
+          className="ant-table ant-table-small ant-table-empty ant-table-scroll-position-left"
+          style={Object {}}
+        >
+          <div
+            className="ant-table-content"
+          >
+            <div
+              className="ant-table-body"
+              onScroll={[Function]}
+              onWheel={[Function]}
+              style={Object {}}
+            >
+              <table
+                className=""
+                style={Object {}}
+              >
+                <colgroup>
+                  <col
+                    style={
+                      Object {
+                        "minWidth": undefined,
+                        "width": undefined,
+                      }
+                    }
+                  />
+                  <col
+                    style={
+                      Object {
+                        "minWidth": 500,
+                        "width": 500,
+                      }
+                    }
+                  />
+                  <col
+                    style={
+                      Object {
+                        "minWidth": undefined,
+                        "width": undefined,
+                      }
+                    }
+                  />
+                </colgroup>
+                <thead
+                  className="ant-table-thead"
+                >
+                  <tr
+                    style={
+                      Object {
+                        "height": null,
+                      }
+                    }
+                  >
+                    <th
+                      className=""
+                    >
+                      <span
+                        className="ant-table-header-column"
+                      >
+                        <div>
+                          <span
+                            className="ant-table-column-title"
+                          >
+                            ID
+                          </span>
+                          <span
+                            className="ant-table-column-sorter"
+                          />
+                        </div>
+                      </span>
+                    </th>
+                    <th
+                      className=""
+                    >
+                      <span
+                        className="ant-table-header-column"
+                      >
+                        <div>
+                          <span
+                            className="ant-table-column-title"
+                          >
+                            Title
+                          </span>
+                          <span
+                            className="ant-table-column-sorter"
+                          />
+                        </div>
+                      </span>
+                    </th>
+                    <th
+                      className=""
+                    >
+                      <span
+                        className="ant-table-header-column"
+                      >
+                        <div>
+                          <span
+                            className="ant-table-column-title"
+                          >
+                            Author
+                          </span>
+                          <span
+                            className="ant-table-column-sorter"
+                          />
+                        </div>
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody
+                  className="ant-table-tbody"
+                />
+              </table>
+            </div>
+            <div
+              className="ant-table-placeholder"
+            >
+              <div
+                className="ant-empty ant-empty-normal"
+              >
+                <div
+                  className="ant-empty-image"
+                >
+                  <svg
+                    height="41"
+                    viewBox="0 0 64 41"
+                    width="64"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="none"
+                      fillRule="evenodd"
+                      transform="translate(0 1)"
+                    >
+                      <ellipse
+                        cx="32"
+                        cy="33"
+                        fill="#F5F5F5"
+                        rx="32"
+                        ry="7"
+                      />
+                      <g
+                        fillRule="nonzero"
+                        stroke="#D9D9D9"
+                      >
+                        <path
+                          d="M55 12.76L44.854 1.258C44.367.474 43.656 0 42.907 0H21.093c-.749 0-1.46.474-1.947 1.257L9 12.761V22h46v-9.24z"
+                        />
+                        <path
+                          d="M41.613 15.931c0-1.605.994-2.93 2.227-2.931H55v18.137C55 33.26 53.68 35 52.05 35h-40.1C10.32 35 9 33.259 9 31.137V13h11.16c1.233 0 2.227 1.323 2.227 2.928v.022c0 1.605 1.005 2.901 2.237 2.901h14.752c1.232 0 2.237-1.308 2.237-2.913v-.007z"
+                          fill="#FAFAFA"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+                <p
+                  className="ant-empty-description"
+                >
+                  No Data
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
